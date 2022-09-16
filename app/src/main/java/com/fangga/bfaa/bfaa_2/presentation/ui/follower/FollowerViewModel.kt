@@ -12,9 +12,7 @@ import kotlinx.coroutines.flow.flowOn
 class FollowerViewModel : ViewModel() {
     private val retrofit: ApiService = RetrofitInstance.create()
 
-    fun getUserFollowers(
-        username: String
-    ) =
+    fun getUserFollowers(username: String) =
         flow {
             emit(Resource.Loading())
             try {

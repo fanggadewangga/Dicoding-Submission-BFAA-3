@@ -68,9 +68,7 @@ class FollowingFragment : BaseFragment<FragmentFollowingBinding>() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
 
-        viewModel.getUserFollowing(
-            username = username.toString()
-        ).observe(viewLifecycleOwner) {
+        viewModel.getUserFollowing(username = username.toString()).observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Error -> callback.onError(it.message)
                 is Resource.Loading -> callback.onLoading()

@@ -71,9 +71,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     userQuery = query.toString()
                     clearFocus()
-                    viewModel.searchUsers(
-                        query = userQuery
-                    ).observe(this@MainActivity) {
+                    viewModel.searchUsers(query = userQuery).observe(this@MainActivity) {
                         when (it) {
                             is Resource.Error -> callback.onError(it.message)
                             is Resource.Loading -> callback.onLoading()
