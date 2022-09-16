@@ -46,15 +46,19 @@ class FollowerFragment : BaseFragment<FragmentFollowerBinding>()  {
 
         val callback = object: ViewStateCallback<List<User>> {
             override fun onLoading() {
-
+                followerProgressBar.visibility = visible
             }
 
             override fun onSuccess(data: List<User>) {
                 rvAdapter.submitData(data)
+                rvFollower.visibility = visible
+                followerProgressBar.visibility = invisible
             }
 
             override fun onError(message: String?) {
-
+                followerProgressBar.visibility = invisible
+                ivSearchFail.visibility = visible
+                tvFind.visibility = visible
             }
 
         }

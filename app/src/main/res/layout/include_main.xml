@@ -16,14 +16,15 @@
     <ImageView
         android:visibility="visible"
         android:id="@+id/iv_find"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:src="@drawable/find"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:tint="@color/white" />
+        android:contentDescription="@string/icon_find"
+        app:tint="@color/grey" />
 
     <TextView
         android:visibility="visible"
@@ -33,10 +34,21 @@
         android:text="@string/please_find"
         android:fontFamily="@font/poppins_semibold"
         android:textSize="20sp"
-        android:textColor="@color/white"
+        android:textColor="@color/grey"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_find"/>
+        app:layout_constraintTop_toBottomOf="@id/iv_find" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progressTint="@color/grey"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

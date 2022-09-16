@@ -1,5 +1,6 @@
 package com.fangga.bfaa.bfaa_2.base
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -21,7 +22,7 @@ abstract class BaseRecyclerViewAdapter<VB: ViewBinding, ListType>
 
     protected abstract val diffUtilBuilder: (List<ListType>, List<ListType>) -> DiffUtil.Callback
 
-    var position: Int? = null
+    private var position: Int? = null
     val size get() = itemList.size
 
     fun submitData(data: List<ListType>) {
@@ -48,11 +49,13 @@ abstract class BaseRecyclerViewAdapter<VB: ViewBinding, ListType>
         return BaseViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: BaseViewHolder,
+        @SuppressLint("RecyclerView") position: Int,
+    ) {
         this.position = position
         holder.bind(itemList[position])
     }
 
     override fun getItemCount(): Int = itemList.size
-
 }

@@ -31,7 +31,8 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
     override fun ActivityDetailBinding.binder() {
         val callback = object: ViewStateCallback<User> {
             override fun onLoading() {
-                TODO("Not yet implemented")
+                makeInvisible()
+                progressBar.visibility = visible
             }
 
             override fun onSuccess(data: User) {
@@ -58,17 +59,34 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
                     .apply(RequestOptions.circleCropTransform())
                     .into(ivUserAvatar)
 
-                supportActionBar?.apply {
-                    setDisplayHomeAsUpEnabled(true)
-                    title = data.username
-                    elevation = 0f
-                }
+                ivCantLoad.visibility = invisible
+                tvCantLoad.visibility = invisible
+                progressBar.visibility = invisible
             }
 
             override fun onError(message: String?) {
-                TODO("Not yet implemented")
+                makeInvisible()
+                progressBar.visibility = invisible
             }
 
+            fun makeInvisible(){
+                tvUsername.visibility = View.INVISIBLE
+                tvName.visibility = View.INVISIBLE
+                tvCompany.visibility = View.INVISIBLE
+                tvLocation.visibility = View.INVISIBLE
+                tvRepository.visibility = View.INVISIBLE
+                tvFollower.visibility = View.INVISIBLE
+                tvFollowing.visibility = View.INVISIBLE
+                ivCompany.visibility = View.GONE
+                ivLocation.visibility = View.GONE
+                ivUserAvatar.visibility = View.GONE
+                ivFollower.visibility = View.GONE
+                ivFollowing.visibility = View.GONE
+                ivRepository.visibility = View.GONE
+                ivCantLoad.visibility = View.INVISIBLE
+                tvCantLoad.visibility = View.INVISIBLE
+                tabs.visibility = invisible
+            }
         }
 
         viewModel = ViewModelProvider(this@DetailActivity)[DetailViewModel::class.java]
@@ -86,7 +104,13 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
         viewPager.adapter = FollowPagerAdapter(this@DetailActivity, username.toString())
         TabLayoutMediator(tabs, viewPager) { tabs, position ->
             tabs.text = resources.getString(TAB_TITLES[position])
-        }. attach()
+        }.attach()
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            title = username
+            elevation = 0f
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -17,4 +17,11 @@
     <string name="topbar_subtitle">Find your developers to make the world more intelligent!</string>
     <string name="please_find">Please Find a Username!</string>
     <string name="arrow">arrow</string>
+    <string name="icon_find">icon_find</string>
+    <string name="search_fail">search_fail</string>
+    <string name="search_cant_find">Can\'t find any user</string>
+    <string name="my_name">fanggadewangga</string>
+    <string name="my_university">University of Brawijaya</string>
+    <string name="my_address">Lamongan, Indonesia</string>
+    <string name="cant_load">Can\'t load user\'s data</string>
 </resources>

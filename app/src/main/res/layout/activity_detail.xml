@@ -29,7 +29,7 @@
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@id/iv_user_avatar"
         app:layout_constraintTop_toTopOf="@id/iv_user_avatar"
-        tools:text="fanggadewangga" />
+        tools:text="@string/my_name" />
 
     <TextView
         android:id="@+id/tv_name"
@@ -40,7 +40,7 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@id/tv_username"
         app:layout_constraintTop_toBottomOf="@id/tv_username"
-        tools:text="fangga" />
+        tools:text="@string/my_name" />
 
     <ImageView
         android:id="@+id/iv_company"
@@ -57,7 +57,7 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_company"
         app:layout_constraintStart_toEndOf="@id/iv_company"
         app:layout_constraintTop_toTopOf="@id/iv_company"
-        tools:text="University of Brawijaya" />
+        tools:text="@string/my_university" />
 
     <ImageView
         android:id="@+id/iv_location"
@@ -74,7 +74,7 @@
         app:layout_constraintStart_toEndOf="@id/iv_location"
         app:layout_constraintTop_toBottomOf="@id/iv_location"
         app:layout_constraintTop_toTopOf="@id/iv_location"
-        tools:text="Lamongan, Indonesia" />
+        tools:text="@string/my_address" />
 
     <ImageView
         android:id="@+id/iv_repository"
@@ -128,6 +128,42 @@
         app:layout_constraintTop_toTopOf="@id/iv_following"
         tools:text="1293198 Following" />
 
+    <ImageView
+        android:id="@+id/iv_cant_load"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:contentDescription="@string/cant_load"
+        android:src="@drawable/search_fail"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/grey" />
+
+    <TextView
+        android:id="@+id/tv_cant_load"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/cant_load"
+        android:textColor="@color/grey"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_cant_load" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progressTint="@color/grey"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
@@ -137,7 +173,7 @@
         android:backgroundTint="@color/black"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/dark_grey"
-        app:layout_constraintTop_toBottomOf="@id/tv_following"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_following" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"

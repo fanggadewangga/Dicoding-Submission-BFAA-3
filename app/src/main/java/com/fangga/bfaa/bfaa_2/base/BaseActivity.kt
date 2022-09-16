@@ -32,6 +32,5 @@ abstract class BaseActivity<VB: ViewBinding>: AppCompatActivity() {
         binding.apply {
             binder()
         }
-
     }
 }

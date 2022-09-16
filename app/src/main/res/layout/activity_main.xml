@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:padding="8dp"
+            app:cardBackgroundColor="@color/grey"
             app:cardCornerRadius="16dp">
 
             <androidx.appcompat.widget.SearchView
@@ -47,9 +48,9 @@
                 android:layout_height="match_parent"
                 android:background="@color/grey"
                 android:textAlignment="center"
+                android:layout_marginHorizontal="8dp"
                 app:queryHint="Find username!" />
         </com.google.android.material.card.MaterialCardView>
-
     </LinearLayout>
 
     <include

@@ -3,6 +3,7 @@ package com.fangga.bfaa.bfaa_2.presentation.ui.main
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.fangga.bfaa.bfaa_2.R
 import com.fangga.bfaa.bfaa_2.base.BaseActivity
 import com.fangga.bfaa.bfaa_2.data.Resource
 import com.fangga.bfaa.bfaa_2.data.model.User
@@ -29,7 +30,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         val callback = object: ViewStateCallback<List<User>> {
             override fun onLoading() {
-
+                includeMain.apply {
+                    rvListUser.visibility = invisible
+                    tvFind.visibility = invisible
+                    ivFind.visibility = invisible
+                    progressBar.visibility = visible
+                }
             }
 
             override fun onSuccess(data: List<User>) {
@@ -38,11 +44,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     rvListUser.visibility = visible
                     tvFind.visibility = invisible
                     ivFind.visibility = invisible
+                    progressBar.visibility = invisible
                 }
             }
 
             override fun onError(message: String?) {
-
+                includeMain.apply {
+                    rvListUser.visibility = invisible
+                    tvFind.visibility = visible
+                    tvFind.text = getString(R.string.search_cant_find)
+                    ivFind.visibility = visible
+                    ivFind.setImageResource(R.drawable.search_fail)
+                    progressBar.visibility = invisible
+                }
             }
         }
 
@@ -73,5 +87,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 }
             })
         }
+        supportActionBar?.hide()
     }
 }
