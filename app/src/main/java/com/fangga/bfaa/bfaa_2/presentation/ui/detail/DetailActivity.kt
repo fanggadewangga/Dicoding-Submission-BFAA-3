@@ -1,0 +1,101 @@
+package com.fangga.bfaa.bfaa_2.presentation.ui.detail
+
+import android.annotation.SuppressLint
+import android.view.View
+import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.fangga.bfaa.bfaa_2.base.BaseActivity
+import com.fangga.bfaa.bfaa_2.data.Resource
+import com.fangga.bfaa.bfaa_2.data.model.User
+import com.fangga.bfaa.bfaa_2.databinding.ActivityDetailBinding
+import com.fangga.bfaa.bfaa_2.presentation.adapter.FollowPagerAdapter
+import com.fangga.bfaa.bfaa_2.utils.Constant.EXTRA_USER
+import com.fangga.bfaa.bfaa_2.utils.Constant.TAB_TITLES
+import com.fangga.bfaa.bfaa_2.utils.ScreenOrientation
+import com.fangga.bfaa.bfaa_2.utils.ViewStateCallback
+import com.google.android.material.tabs.TabLayoutMediator
+
+class DetailActivity : BaseActivity<ActivityDetailBinding>() {
+    private lateinit var viewModel: DetailViewModel
+
+    override fun inflateViewBinding(): ActivityDetailBinding {
+        return ActivityDetailBinding.inflate(layoutInflater)
+    }
+
+    override fun determineScreenOrientation(): ScreenOrientation {
+        return ScreenOrientation.PORTRAIT
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun ActivityDetailBinding.binder() {
+        val callback = object: ViewStateCallback<User> {
+            override fun onLoading() {
+                TODO("Not yet implemented")
+            }
+
+            override fun onSuccess(data: User) {
+                if (data.company == null) {
+                    ivCompany.visibility = View.GONE
+                    tvCompany.visibility = View.GONE
+                }
+
+                if (data.location == null) {
+                    ivLocation.visibility = View.GONE
+                    tvLocation.visibility = View.GONE
+                }
+
+                tvUsername.text = data.username
+                tvName.text = data.name
+                tvCompany.text = data.company
+                tvLocation.text = data.location
+                tvRepository.text = "${data.repository} Repositories"
+                tvFollower.text = "${data.follower} Followers"
+                tvFollowing.text = "${data.following} Following"
+
+                Glide.with(this@DetailActivity)
+                    .load(data.avatar)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(ivUserAvatar)
+
+                supportActionBar?.apply {
+                    setDisplayHomeAsUpEnabled(true)
+                    title = data.username
+                    elevation = 0f
+                }
+            }
+
+            override fun onError(message: String?) {
+                TODO("Not yet implemented")
+            }
+
+        }
+
+        viewModel = ViewModelProvider(this@DetailActivity)[DetailViewModel::class.java]
+
+        val username = intent.getStringExtra(EXTRA_USER)
+
+        viewModel.getUserDetail(username).observe(this@DetailActivity) {
+            when (it) {
+                is Resource.Error -> callback.onError(it.message)
+                is Resource.Loading -> callback.onLoading()
+                is Resource.Success -> it.data?.let { it1 -> callback.onSuccess(it1) }
+            }
+        }
+
+        viewPager.adapter = FollowPagerAdapter(this@DetailActivity, username.toString())
+        TabLayoutMediator(tabs, viewPager) { tabs, position ->
+            tabs.text = resources.getString(TAB_TITLES[position])
+        }. attach()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+}
