@@ -1,7 +1,6 @@
 package com.fangga.bfaa.bfaa_2.data
 
 import android.app.Application
-import androidx.lifecycle.asLiveData
 import com.fangga.bfaa.bfaa_2.data.datastore.UserDataStore
 import com.fangga.bfaa.bfaa_2.data.local.UserDao
 import com.fangga.bfaa.bfaa_2.data.local.UserDatabase
