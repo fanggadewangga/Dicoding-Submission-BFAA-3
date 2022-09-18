@@ -1,31 +1,12 @@
 package com.fangga.bfaa.bfaa_2.presentation.ui.main
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import com.fangga.bfaa.bfaa_2.data.Resource
-import com.fangga.bfaa.bfaa_2.data.remote.ApiService
-import com.fangga.bfaa.bfaa_2.data.remote.RetrofitInstance
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import com.fangga.bfaa.bfaa_2.data.Repository
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application){
 
-    private val retrofit: ApiService = RetrofitInstance.create()
+    private val repository = Repository(application)
 
-    fun searchUsers(query: String) =
-        flow {
-            emit(Resource.Loading())
-            try {
-                val list = retrofit.searchUser(query).items
-                if (list.isEmpty())
-                    emit(Resource.Error(null))
-                else {
-                    emit(Resource.Success(list))
-                }
-
-            } catch (e: Exception) {
-                emit(Resource.Error(e.localizedMessage))
-            }
-        }.flowOn(Dispatchers.IO).asLiveData()
+    fun searchUsers(query: String) = repository.searchUsers(query)
 }
