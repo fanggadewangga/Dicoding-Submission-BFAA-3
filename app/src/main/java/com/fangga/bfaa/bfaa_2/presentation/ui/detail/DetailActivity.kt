@@ -16,6 +16,7 @@ import com.fangga.bfaa.bfaa_2.utils.ScreenOrientation
 import com.fangga.bfaa.bfaa_2.utils.ViewStateCallback
 import com.google.android.material.tabs.TabLayoutMediator
 
+@Suppress("DEPRECATION")
 class DetailActivity : BaseActivity<ActivityDetailBinding>() {
     private lateinit var viewModel: DetailViewModel
 
@@ -118,6 +119,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
         return super.onSupportNavigateUp()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
