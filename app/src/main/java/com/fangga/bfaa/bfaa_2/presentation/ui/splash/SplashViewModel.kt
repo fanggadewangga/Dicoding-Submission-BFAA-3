@@ -9,5 +9,5 @@ import kotlinx.coroutines.Dispatchers
 class SplashViewModel(application: Application): AndroidViewModel(application) {
     private val repository = Repository(application)
 
-    suspend fun getTheme() = repository.getTheme().asLiveData(Dispatchers.IO)
+    fun getTheme() = repository.getTheme().asLiveData(Dispatchers.IO)
 }

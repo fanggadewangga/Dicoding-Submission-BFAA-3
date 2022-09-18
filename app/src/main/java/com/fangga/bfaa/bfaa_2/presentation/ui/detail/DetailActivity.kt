@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.fangga.bfaa.bfaa_2.R
 import com.fangga.bfaa.bfaa_2.base.BaseActivity
 import com.fangga.bfaa.bfaa_2.data.Resource
 import com.fangga.bfaa.bfaa_2.data.model.User
@@ -30,7 +31,9 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
 
     @SuppressLint("SetTextI18n")
     override fun ActivityDetailBinding.binder() {
-        val callback = object: ViewStateCallback<User> {
+        viewModel = ViewModelProvider(this@DetailActivity)[DetailViewModel::class.java]
+
+        val callback = object : ViewStateCallback<User> {
             override fun onLoading() {
                 makeInvisible()
                 progressBar.visibility = visible
@@ -54,6 +57,11 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
                 tvRepository.text = "${data.repository} Repositories"
                 tvFollower.text = "${data.follower} Followers"
                 tvFollowing.text = "${data.following} Following"
+                if (data.isFavorite == true)
+                    btnFavorite.setBackgroundResource(R.drawable.favorite)
+                else
+                    btnFavorite.setBackgroundResource(R.drawable.unfavorite)
+                btnFavorite.visibility = visible
 
                 Glide.with(this@DetailActivity)
                     .load(data.avatar)
@@ -63,6 +71,18 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
                 ivCantLoad.visibility = invisible
                 tvCantLoad.visibility = invisible
                 progressBar.visibility = invisible
+
+                btnFavorite.setOnClickListener {
+                    if (data.isFavorite == true) {
+                        data.isFavorite = false
+                        btnFavorite.setBackgroundResource(R.drawable.unfavorite)
+                        viewModel.deleteFavoritedUser(data)
+                    } else {
+                        data.isFavorite = true
+                        btnFavorite.setBackgroundResource(R.drawable.favorite)
+                        viewModel.insertFavoritedUser(data)
+                    }
+                }
             }
 
             override fun onError(message: String?) {
@@ -87,10 +107,9 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
                 ivCantLoad.visibility = View.INVISIBLE
                 tvCantLoad.visibility = View.INVISIBLE
                 tabs.visibility = invisible
+                btnFavorite.visibility = invisible
             }
         }
-
-        viewModel = ViewModelProvider(this@DetailActivity)[DetailViewModel::class.java]
 
         val username = intent.getStringExtra(EXTRA_USER)
 

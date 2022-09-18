@@ -24,4 +24,11 @@
     <string name="my_university">University of Brawijaya</string>
     <string name="my_address">Lamongan, Indonesia</string>
     <string name="cant_load">Can\'t load user\'s data</string>
+    <string name="favorite">Favorite</string>
+    <string name="light_mode">Light Mode</string>
+    <string name="switch_explanation">Switch to Change Mode</string>
+    <string name="setting">Setting</string>
+    <string name="no_favorites">No Favorites</string>
+    <string name="progress">progress</string>
+    <string name="icon">Icon</string>
 </resources>

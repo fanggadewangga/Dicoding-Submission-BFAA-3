@@ -1,7 +1,6 @@
 package com.fangga.bfaa.bfaa_2.presentation.adapter
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -33,7 +32,6 @@ class UserAdapter: BaseRecyclerViewAdapter<ItemListUserBinding, User>() {
                 val intent = Intent(itemView.context, DetailActivity::class.java)
                 intent.putExtra(EXTRA_USER,data.username)
                 itemView.context.startActivity(intent)
-                Log.e(this@UserAdapter.toString(), "Clicked")
             }
         }
     }

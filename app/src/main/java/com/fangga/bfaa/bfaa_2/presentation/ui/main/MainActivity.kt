@@ -1,5 +1,6 @@
 package com.fangga.bfaa.bfaa_2.presentation.ui.main
 
+import android.content.Intent
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,6 +10,8 @@ import com.fangga.bfaa.bfaa_2.data.Resource
 import com.fangga.bfaa.bfaa_2.data.model.User
 import com.fangga.bfaa.bfaa_2.databinding.ActivityMainBinding
 import com.fangga.bfaa.bfaa_2.presentation.adapter.UserAdapter
+import com.fangga.bfaa.bfaa_2.presentation.ui.favorite.FavoriteActivity
+import com.fangga.bfaa.bfaa_2.presentation.ui.setting.SettingActivity
 import com.fangga.bfaa.bfaa_2.utils.ScreenOrientation
 import com.fangga.bfaa.bfaa_2.utils.ViewStateCallback
 
@@ -80,11 +83,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     }
                     return true
                 }
+
                 override fun onQueryTextChange(newText: String?): Boolean {
                     return false
                 }
             })
         }
+
+        btnFavorite.setOnClickListener {
+            val intent = Intent(this@MainActivity, FavoriteActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnSettings.setOnClickListener {
+            val intent = Intent(this@MainActivity, SettingActivity::class.java)
+            startActivity(intent)
+        }
+
         supportActionBar?.hide()
     }
 }

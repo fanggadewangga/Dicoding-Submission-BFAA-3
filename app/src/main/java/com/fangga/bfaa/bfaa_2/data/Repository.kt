@@ -42,7 +42,12 @@ class Repository(application: Application) {
 
     fun getUserDetail(username: String?) = flow{
         try {
-            val result = retrofit.getUserDetail(username.toString())
+            val result =
+                if (username?.let { dao.getFavoritedUserDetail(it) } != null) {
+                    username.let { dao.getFavoritedUserDetail(it) }
+                } else {
+                    retrofit.getUserDetail(username.toString())
+                }
             emit(Resource.Success(result))
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage))
@@ -97,5 +102,8 @@ class Repository(application: Application) {
 
     suspend fun deleteFavoritedUser(user: User) = dao.deleteFavoritedUser(user)
 
-    suspend fun getTheme() = dataStore.getThemeSetting()
+    suspend fun saveTheme(isLightModeActive: Boolean) =
+        dataStore.saveThemeSetting(isLightModeActive)
+
+    fun getTheme() = dataStore.getThemeSetting()
 }
