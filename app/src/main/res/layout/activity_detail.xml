@@ -46,6 +46,17 @@
             app:layout_constraintTop_toBottomOf="@id/tv_username"
             tools:text="@string/my_name" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_favorite"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/unfavorite"
+            android:backgroundTint="@color/white"
+            app:layout_constraintTop_toTopOf="@id/tv_username"
+            app:layout_constraintBottom_toBottomOf="@id/tv_name"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
         <ImageView
             android:id="@+id/iv_company"
             style="@style/DetailIcon"
