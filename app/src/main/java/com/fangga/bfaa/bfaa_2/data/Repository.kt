@@ -38,7 +38,7 @@ class Repository(application: Application) {
             } catch (e: Exception) {
                 emit(Resource.Error(e.localizedMessage))
             }
-        }.flowOn(Dispatchers.IO).asLiveData()
+        }.flowOn(Dispatchers.IO)
 
     fun getUserDetail(username: String?) = flow{
         try {
@@ -52,7 +52,7 @@ class Repository(application: Application) {
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage))
         }
-    }.flowOn(Dispatchers.IO).asLiveData()
+    }.flowOn(Dispatchers.IO)
 
     fun getUserFollowers(username: String) =
         flow {
@@ -67,7 +67,7 @@ class Repository(application: Application) {
             } catch (e: Exception) {
                 emit(Resource.Error(e.localizedMessage))
             }
-        }.flowOn(Dispatchers.IO).asLiveData()
+        }.flowOn(Dispatchers.IO)
 
     fun getUserFollowing(username: String) =
         flow {
@@ -82,7 +82,7 @@ class Repository(application: Application) {
             } catch (e: Exception) {
                 emit(Resource.Error(e.localizedMessage))
             }
-        }.flowOn(Dispatchers.IO).asLiveData()
+        }.flowOn(Dispatchers.IO)
 
     fun getFavorites() =
         flow {
@@ -96,7 +96,7 @@ class Repository(application: Application) {
             } catch (e: Exception) {
                 emit(Resource.Error(e.localizedMessage))
             }
-        }.flowOn(Dispatchers.IO).asLiveData()
+        }.flowOn(Dispatchers.IO)
 
     suspend fun insertFavoritedUser(user: User) = dao.insertFavoritedUser(user)
 

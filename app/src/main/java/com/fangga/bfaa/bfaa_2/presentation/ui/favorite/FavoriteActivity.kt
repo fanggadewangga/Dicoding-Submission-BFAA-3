@@ -13,6 +13,7 @@ import com.fangga.bfaa.bfaa_2.utils.ViewStateCallback
 @Suppress("DEPRECATION")
 class FavoriteActivity : BaseActivity<ActivityFavoriteBinding>() {
     private lateinit var viewModel: FavoriteViewModel
+    private val rvAdapter = UserAdapter()
 
     override fun inflateViewBinding(): ActivityFavoriteBinding {
         return ActivityFavoriteBinding.inflate(layoutInflater)
@@ -23,33 +24,7 @@ class FavoriteActivity : BaseActivity<ActivityFavoriteBinding>() {
     }
 
     override fun ActivityFavoriteBinding.binder() {
-        val rvAdapter = UserAdapter()
         viewModel = ViewModelProvider(this@FavoriteActivity)[FavoriteViewModel::class.java]
-
-        val callback = object : ViewStateCallback<List<User>> {
-            override fun onLoading() {
-                favoriteProgressBar.visibility = visible
-                rvFavorite.visibility = invisible
-                ivEmpty.visibility = invisible
-                tvEmpty.visibility = invisible
-            }
-
-            override fun onSuccess(data: List<User>) {
-                rvAdapter.submitData(data)
-                rvFavorite.visibility = visible
-                ivEmpty.visibility = invisible
-                tvEmpty.visibility = invisible
-                favoriteProgressBar.visibility = invisible
-            }
-
-            override fun onError(message: String?) {
-                favoriteProgressBar.visibility = invisible
-                rvFavorite.visibility = invisible
-                ivEmpty.visibility = visible
-                tvEmpty.visibility = visible
-            }
-
-        }
 
         rvFavorite.apply {
             adapter = rvAdapter
@@ -66,6 +41,50 @@ class FavoriteActivity : BaseActivity<ActivityFavoriteBinding>() {
         }
 
         supportActionBar?.hide()
+    }
+
+    private val callback = object : ViewStateCallback<List<User>> {
+        override fun onLoading() {
+            binding.apply {
+                favoriteProgressBar.visibility = visible
+                rvFavorite.visibility = invisible
+                ivEmpty.visibility = invisible
+                tvEmpty.visibility = invisible
+            }
+        }
+
+        override fun onSuccess(data: List<User>) {
+            binding.apply {
+                rvAdapter.submitData(data)
+                rvFavorite.visibility = visible
+                ivEmpty.visibility = invisible
+                tvEmpty.visibility = invisible
+                favoriteProgressBar.visibility = invisible
+            }
+        }
+
+        override fun onError(message: String?) {
+            binding.apply {
+                favoriteProgressBar.visibility = invisible
+                rvFavorite.visibility = invisible
+                ivEmpty.visibility = visible
+                tvEmpty.visibility = visible
+            }
+        }
+
+    }
+
+    override fun onResume() {
+        viewModel = ViewModelProvider(this@FavoriteActivity)[FavoriteViewModel::class.java]
+
+        viewModel.getFavorites().observe(this@FavoriteActivity) {
+            when (it) {
+                is Resource.Error -> callback.onError(it.message)
+                is Resource.Loading -> callback.onLoading()
+                is Resource.Success -> it.data?.let { it1 -> callback.onSuccess(it1) }
+            }
+        }
+        super.onResume()
     }
 
     override fun onSupportNavigateUp(): Boolean {
