@@ -1,4 +1,4 @@
-package com.fangga.bfaa.bfaa_2.presentation.ui
+package com.fangga.bfaa.bfaa_2.presentation.ui.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent

@@ -16,7 +16,7 @@
         android:theme="@style/Theme.GithubUserApp"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.ui.SplashActivity"
+            android:name=".presentation.ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

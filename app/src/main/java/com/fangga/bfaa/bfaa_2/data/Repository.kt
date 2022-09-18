@@ -2,6 +2,7 @@ package com.fangga.bfaa.bfaa_2.data
 
 import android.app.Application
 import androidx.lifecycle.asLiveData
+import com.fangga.bfaa.bfaa_2.data.datastore.UserDataStore
 import com.fangga.bfaa.bfaa_2.data.local.UserDao
 import com.fangga.bfaa.bfaa_2.data.local.UserDatabase
 import com.fangga.bfaa.bfaa_2.data.model.User
@@ -11,14 +12,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class Repository(private val application: Application) {
+class Repository(application: Application) {
 
     private val dao: UserDao
     private val retrofit: ApiService = RetrofitInstance.create()
+    private val dataStore: UserDataStore
 
     init {
         val database: UserDatabase = UserDatabase.getInstance(application)
         dao = database.userDao()
+        dataStore = UserDataStore.getInstance(application)
     }
 
     fun searchUsers(query: String) =
@@ -93,4 +96,6 @@ class Repository(private val application: Application) {
     suspend fun insertFavoritedUser(user: User) = dao.insertFavoritedUser(user)
 
     suspend fun deleteFavoritedUser(user: User) = dao.deleteFavoritedUser(user)
+
+    suspend fun getTheme() = dataStore.getThemeSetting()
 }
