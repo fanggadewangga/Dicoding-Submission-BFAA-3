@@ -7,11 +7,11 @@
         <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/dark_grey</item>
-        <item name="colorSecondaryVariant">@color/dark_grey</item>
-        <item name="colorOnSecondary">@color/dark_grey</item>
+        <item name="colorSecondary">@color/grey</item>
+        <item name="colorSecondaryVariant">@color/grey</item>
+        <item name="colorOnSecondary">@color/grey</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/dark_grey</item>
+        <item name="android:statusBarColor">@color/black</item>
         <!-- Customize your theme here. -->
         <item name="android:editTextColor">@android:color/darker_gray</item>
         <item name="android:textColorHint">@android:color/darker_gray</item>
@@ -54,6 +54,10 @@
     </style>
 
     <style name="background">
-        <item name="android:background">@color/dark_grey</item>
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="cardbackground">
+        <item name="android:backgroundTint">@color/dark_grey</item>
     </style>
 </resources>

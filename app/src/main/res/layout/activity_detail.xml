@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    style="@style/background"
     tools:context=".presentation.ui.detail.DetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -173,7 +173,9 @@
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:progressTint="@color/grey"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/white"
+            android:indeterminateTintMode="src_atop"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -185,7 +187,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:backgroundTint="@color/black"
+            android:background="@color/black"
             app:layout_constraintTop_toBottomOf="@id/tv_following"
             app:tabSelectedTextColor="@color/white"
             app:tabTextColor="@color/dark_grey" />
